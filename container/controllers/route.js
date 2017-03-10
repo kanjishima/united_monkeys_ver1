@@ -54,14 +54,7 @@ exports.logout = function(req,res){
         "name" : req.session.user,
     };
     req.session.destroy();
-    var errRoute    = function(){res.redirect("/");};
-    var failRoute   = function(){res.redirect("/");};
-    var succesRoute = function(data){
-        LoginUsers.remove_pvd(query);
-        User.set_pvd(query,{"logStatus":"logout"});
-        console.log(data);
-        res.redirect("/login");
-    };
-    LoginUsers.find_pvd(query,errRoute,failRoute,succesRoute);
+    User.set_pvd(query,{"logStatus":"logout"});
+    res.redirect("/login");
 };
 

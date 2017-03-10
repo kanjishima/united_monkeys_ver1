@@ -20,7 +20,7 @@ var settings = require("./container/xPublic/settings.js");
 
 //start-up
 var MongoStore = connectmongo(session);
-mongoose.connect ('mongodb://'+process.env.IP+'/session');
+mongoose.connect ('mongodb://'+process.env.IP+'/user');
 var app = express();
 var server = http.createServer(app);
 var io = socketio.listen(server);
