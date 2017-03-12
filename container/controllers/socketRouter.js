@@ -25,9 +25,9 @@ exports.disconnect = function(){
     var query = {
         "name" : socket.handshake.session.user
     }
+    User.set_pvd(query,{"logStatus":"logout"});
     socket.broadcast.emit("reloadLoginUsers",query);
     console.log("disconnect",socket.handshake.session.user);
-    User.set_pvd(query,{"logStatus":"logout"});
 }
 exports.createGameTable = function(query){
     console.log("createGameTable");
@@ -48,12 +48,13 @@ exports.seeds = function(data){
     console.log("seeds");
     async.series([
         function(callback){
-            User.set_pvd({"user":socket.handshake.session.user},{"logStatus":"login"},"","",function(){
+            User.set_pvd({"name":socket.handshake.session.user},{"logStatus":"login"},"","",function(){
                 callback(null,"");
             });
         },
         function(callback){
             User.find_pvd({},"","",function(user_buf){
+                console.log(user_buf);
                 callback(null,user_buf);
             });
         },
@@ -63,6 +64,7 @@ exports.seeds = function(data){
             }); 
         }],
         function(err,results){
+            if(err){ throw err };
             data = {
                 "you"         : socket.handshake.session.user,
                 "User"        : results[1],//user_buf

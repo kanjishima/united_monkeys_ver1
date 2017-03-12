@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
-var url = 'mongodb://'+process.env.IP+'/user';
-//var url = 'mongodb://<dbuser>:<dbpassword>@ds153667.mlab.com:53667/heroku_k2bprm7w';
+var settings = require(".././xPublic/settings.js");
+
+var url = settings.mongoUrl;
+
 mongoose.Promise = global.Promise;
 var db  = mongoose.createConnection(url, function(err, res){
     if(err){

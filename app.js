@@ -20,7 +20,9 @@ var settings = require("./container/xPublic/settings.js");
 
 //start-up
 var MongoStore = connectmongo(session);
-mongoose.connect ('mongodb://'+process.env.IP+'/user');
+//mongoose.connect ('mongodb://'+process.env.IP+'/user');
+//mongoose.connect ('mongodb://test:test@ds127190.mlab.com:27190/umvo');
+mongoose.connect (settings.mongoUrl);
 var app = express();
 var server = http.createServer(app);
 var io = socketio.listen(server);
@@ -68,6 +70,7 @@ app.get('/logout', route.logout);
 //socket-rooting (access to /controllers/socketRouter.js")
 io.on('connection', function(socket){
     socketRouter.start(socket);
+    console.log("socket.handshake.session.user",socket.handshake.session.user);
     socket.emit('my_user',socket.handshake.session.user);
     socket.on('my_name_is',socketRouter.seeds);
     socket.on('createGameTable',socketRouter.createGameTable);
