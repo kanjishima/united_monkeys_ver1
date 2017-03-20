@@ -1,0 +1,6 @@
+<% for (user of loginUsers){ %>
+    <div class="user_id_<%= user._id %>">
+        <%= user.name %>
+        <a class="where"><%= user.where %></a>
+    </div>
+<% } %>

@@ -18,7 +18,7 @@ exports.loginCheck = function(req, res, next) {
 exports.root = function(req,res){
     console.log("root");
     var query ={
-        user : req.session.user,
+        you : req.session.user,
     };
     res.render('home.ejs', query);
 };
@@ -30,7 +30,7 @@ exports.add = function(req, res){
     };
     var errRoute    = function(){res.redirect("back");};
     var succesRoute = function(){res.redirect("/login");};
-    User.add_pvd(query,errRoute,"",succesRoute);
+    User.add_pvd(query,succesRoute,"",errRoute);
 };
 exports.login = function(req, res){
     console.log("login");
@@ -45,7 +45,7 @@ exports.login = function(req, res){
         User.set_pvd(query,{"logStatus":"login"});
         res.redirect("/");
     };
-    User.find_pvd(query,errRoute,failRoute,succesRoute);
+    User.find_pvd(query,succesRoute,failRoute,errRoute);
 };
 exports.logout = function(req,res){
     console.log("logout");    
@@ -57,4 +57,10 @@ exports.logout = function(req,res){
     User.set_pvd(query,{"logStatus":"logout"});
     res.redirect("/login");
 };
-
+exports.osero = function(req,res){
+    console.log("osero");
+    var query ={
+        you : req.session.user,
+    };
+    res.render('.././xGames/osero/index.ejs', query);
+};

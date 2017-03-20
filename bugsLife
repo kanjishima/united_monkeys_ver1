@@ -1,0 +1,11 @@
+//socket.ioの挙動がおかしい。
+・二つのブラウザでアクセスするとタイミングによって、appendの中身が片方に偏る
+・一つのほうでremoveGameTableするともう片方でできない？
+・location.href=でアクセスしようとすると、なぜかもう片方が画面遷移する。
+=>socketRouterで外部化したのが原因。socketRouter.startで引き継がれるsocketは、
+最新のconnectionイベントが発火したsocketになる。つまりsocketRouterで記述される
+socketは"直近でconnection（ロードされた）socket"になるということ。
+=>socketRouterを介する際にfunction(data){ socketRouter.XXXXXXXX(soxket,data) };とし、
+socketRouterのほうにもsocketを引数として扱うように変更した。app.jsの肥大化させる
+方法もあったが、たぶんこちらのほうがメンテナンス性が高い。多少コードの総合計自体は
+上がるが、コードの見通しのよさでいえば、この方法の方がすっきりするはず。

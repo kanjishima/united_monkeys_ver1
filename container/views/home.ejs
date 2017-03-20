@@ -4,118 +4,83 @@
 %>
     <div class="container">
         <h1>this is HOME</h1>
-        <p>Welcome <%= user %>! Have a nice Gaming!!</p>
+        <p>Welcome <%= you %>! Have a nice Gaming!!</p>
         <p>
-            <a id="logout" href="/logout" class="btn btn-primary">LOG OUT</a>
+            <a id="logout" class="btn btn-primary">LOG OUT</a>
         </p>
         
         <div id="loginUsers">
             <h3>LOGIN USERS</h3>
-            <ul></ul>
+            <ul id="loginUsersList"></ul>
         </div>
         
-        <fieldset>
-            <legend><h3>Create New GameTable?</h3></legend>
-            <form id="createGameTable">
-                <div>owner : <%= user %></div> 
-                <div>
-                    <a>gameType :</a>
-                    <select name="gameType" id="gameType_cng">
-                        <option value="osero">osero</option>
-                        <option value="janken">janken</option>
-                    </select>
-                </div>
-                <div>
-                    <a>invitation :</a>
-                    <select name="invitation1" id="invitation1_cng">
-                        <option value="">    </option>
-                        <option value=""></option>
-                    </select>
-                </div>
- 
-                <input id="createGameTable" class="btn btn-primary" type="submit" value="submit">
-                
-            </form>
-        </fieldset>
-        
+        <div id="createGameTable">
+        </div>
         
         <div id="gameTables">
             <h3>GAME TABLES</h3>
-            <ul></ul>
+            <ul id="gameTablesList"></ul>
         </div>
         
-    </div>
-    
         <script>
             $(function(){
                 var socket = io.connect();
-                socket.on('my_user',function(data){
-                   socket.emit('my_name_is',data); 
-                });
-                socket.on('seeds'  ,function(data){
-                    reloadLoginUsers(data);
-                    reloadGameTables(data);
-                });
-                socket.on('reloadLoginUsers',reloadLoginUsers);
-                    
-                function reloadLoginUsers(data){
-                    $("#loginUsers > ul").append(asyncRender(data,"User"));
-                    $(".logStatus > interior:contains('logout')").parent().parent().remove();
-                    $("#loginUsers > ul > div > .password").remove();  // this code and structure is danger. because this divne deleted, all login users password is revealde. if you debelop this file, you shold have to manage this problem .
-                    //$("#loginUsers > ul > div > .logStatus").remove();
-                }
-                function reloadGameTables(data){
-                    var lastQuery = "";
-                    if(countObj(data) == 1 && countObj(masterKey(data,0)) == 1){lastQuery = ":last";}; 
-                    $("#gameTables > ul").append(asyncRender(data,"gameTable"));
-                    $("#gameTables > ul > div"+lastQuery).append('<div class="removeGameTable btn btn-danger" >DELETE this TABLE</div>');
-                    $(".removeGameTable").on("click",removeGameTable);
-                    $("#gameTables > ul > div").addClass("row");
-                    $("#gameTables > ul > div > div[class^='status']").addClass("col-sm-2");
-                    $("#gameTables > ul > div > div[class^='gametype']").addClass("col-sm-2");
-                    $("#gameTables > ul > div > div[class^='owner']").addClass("col-sm-1");
-                    $("#gameTables > ul > div > div[class^='participants']").addClass("col-sm-3");
-                    $("#gameTables > ul > div > div[class^='removeGameTable']").addClass("col-sm-4");
                 
-                    //user where logout/login Home/Table:id
-                }
+                socket.emit('loadHome');
+                socket.on('reloadHome',function(){
+                    socket.emit('loadHome');
+                })
                 
-                $("#logout").on("click",logout);
-                $('#createGameTable[type="submit"]').on("click",createGameTable);
-                socket.on('reloadGameTable',reloadGameTables);
-                function logout(){
-                    socket.broadcast.emit("reloadGameTable");
-                }
-                function createGameTable(e){
-                    e.preventDefault();
-                    var participants = [];
-                    var invitationNum = 4;
-                    console.log("invitationNum",invitationNum)
-                    for(var i=1;i<=invitationNum;i++){
-                        if($("#invitation" + i +  "_cng").val()){
-                            participants.push($("#invitation" + i + "_cng").val());
-                            console.log("val:",$("#invitation" + i + "_cng").val());
-                        }
-                    }
+                socket.on('loadHome' ,function(data){
+                    $("#loginUsersList").append(data.loginusersList);
+                    $("#createGameTable").append(data.createGameTable);
+                    $("#gameTablesList").append(data.gameTableList);
+                });
+                socket.on('removeLoginUser',function(data){
+                    $(".user_id_"+ data.user[0]._id ).remove();
+                });
+
+                $("#logout").on("click",function(){
+                    socket.emit("logout","<%= you %>");
+                    location.href='/login';
+                });
+                socket.on("addGameTable",function(data){
+                    $("#gameTablesList").append(data.gameTableList);
+                });
+                $("#createGameTable").on("click","#createGameTableButton",function(){
                     var query ={
-                        "owner"       : "<%= user %>",
+                        "owner"       : "<%= you %>",
                         "gametype"    : $("#gameType_cng").val(),
                         "status"      : "scheduled",
-                        "participants": participants,
-                        //"game_content": { type: String },
+                        "participants": $("#invitation_cng").val(),
+                        "seatStatus"  : "not_yet"
                     }
-                    console.log(query);
                     socket.emit("createGameTable",query); 
-                };
-                function removeGameTable(){
-                    var gameTable_id = $(this).parent().attr("id");
+                });
+                $("#gameTablesList").on("click",".removeGameTable",function(){
+                    var gameTable_id = $(this).attr("id");
                     socket.emit("removeGameTable",gameTable_id);
-                    console.log(gameTable_id);
                     $(this).parent().remove();
-                }
-                
-                
-                
+                });
+                socket.on('removeGameTable',function(data){
+                    $(".gameTable_id_"+ data._id ).remove();
+                });
+                $("#gameTablesList").on("click",".seating",function(){
+                    var query = {
+                        user         : "<%= you %>", 
+                        gameTable_id : $(this).parent().attr("id"),
+                    }
+                    socket.emit("seating",query);
+                });
+                socket.on("goGameRoom",function(data){
+                    location.href='/'+data.gametype+'/'+data._id;
+                    console.log('/'+data.gametype+'/'+data._id);
+                });
+                socket.on('addLoginUser',function(data){
+                    $(".user_id_"+data.newLoginID ).remove();
+                    $("#loginUsersList").append(data.newLoginList);
+                    $("#invitation_cng").append(data.newCngOpt);
+                })
             });
         </script>               
         

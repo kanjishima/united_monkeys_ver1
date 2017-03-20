@@ -1,18 +1,29 @@
 //this file is written for "What should I do Next." In other word, just a MEMO!!
 //imgs;) Infinite Monkeys on Giant's Sholder 
 
+
+
+
 /GoodLooks for Home
 /Identify New confirm User
-/invitation's number, adapt for GameType
 /set user icon <= this function is necessary for Love to UMonlineBG;)
 /and user's privatePage;)
+
+//divide dataQuery/viewPartsQuery .
+/dataQuery => dbQuery its self
+/viewPartsQuery => clientSide ejs html code
+
+
+
 /gameTable seated/not_yet/leave_seat option and seatingButton!(and leavingButton)
-/Rethink dataStructure . "should have WhereProperty?" etc..
 
-/ejsFiles less, and dataHandling is serverSide. <= sisou
-//(for Models.js)and refactoring this addingMethod. and test
 
-//for diet HOMEejs, DRY jquery's HTML codes. so ejs'shtmlcode less.    and include appendHTML.ejs
-//onload, neededDtata into qraientsVariables(like var data).
-//socketMessages, click Event or Loaded event, jquery append Some HTML codes.
-//qraientsHave only VIEWs.and "where to click"infomations.
+
+
+
+
+//vLocal MongoDB access
+$ mongo ds127190.mlab.com:27190/umvo -u test -p test
+
+//heroku server logs
+$ heroku logs -t

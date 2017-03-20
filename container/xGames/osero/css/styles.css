@@ -1,0 +1,233 @@
+body{
+    text-align: center;
+    font-family: "Arial";
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    color: #111111;
+        text-align: center;
+    margin:0 auto;
+}
+.outherNote{
+    font-size:16px;
+    float: right;
+}
+#systemMessage{
+    font-size: 16px;
+    text-align: center;
+    margin:0 auto;
+}
+#modal-overlay.onModal{
+    z-index : 1;
+    margin:0 auto;
+    position : fixed;
+	top  : 0;
+	left  : 0;
+	width : 100%;
+	height  : 120%;
+	background-color  : rgba(0,0,0,0.35);    
+}
+#gameMessage{
+    font-size: 16px;
+    text-align: center;
+    margin:0 auto;
+    z-index           : 2;
+    background        : white;
+    font-size         : 40px;
+    width             : 250px;
+    position          : relative;
+    top               : -420px;
+    left              : 0px;
+    border-radius     : 20px;
+    padding-top       : 50px;
+    padding-bottom    : -10px;
+    border            : solid 10px #dddddd
+}
+#gameMessage #btn{
+    z-index           : 2;
+    background        : #ffffff;
+    color             : #dddddd;
+    font-size         : 35px;
+    width             : 80px;
+    height            : 40px;
+    position          : relative;
+    top               : 30px;
+    left              : 10px;
+    border-radius     : 10px;
+    padding           : 10px;
+    border            : solid 3px #dddddd 
+}
+#gameMessage #btn:hover{
+    color             : #111111;
+    border            : solid 3px #111111
+}
+#gameMessage #btn2{
+    z-index           : 2;
+    background        : #ffffff;
+    color             : #dddddd;
+    font-size         : 35px;
+    width             : 80px;
+    height            : 40px;
+    position          : relative;
+    top               : -36px;
+    left              : 134px;
+    border-radius     : 10px;
+    padding           : 10px;
+    border            : solid 3px #dddddd 
+}
+#gameMessage #btn2:hover{
+    color             : #111111;
+    border            : solid 3px #111111
+}
+
+
+/* AREA_ZONEs */
+  /* AREA_ZONEs */
+    /* AREA_ZONEs */
+      /* AREA_ZONEs */
+
+.playerInfo{
+    font-size:24px;
+    background: #222;
+    color: #ccc;
+    width: 400px;
+    height: 30px;
+    margin: 0 auto;
+    padding-top:3px;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+.playerTokensHold{
+    background-image: url("../img/playerTokensHold.png");
+    width: 400px;
+    height: 50px;
+    margin: 0 auto;
+    border-top:3px solid black;
+    border-bottom:3px solid black;
+}
+.activePlayer .playerTokensHold{
+    opacity: 0.8;
+}
+
+.playerStatus.activePlayer{
+    position: relative;
+    top: 2px;
+    left: 2px;
+    display: inline-block;
+    width: 0px;
+    border-color: #d9534f;
+    border-style: solid;
+    border-width: 11px;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    -webkit-animation:blink 1.3s ease-in-out infinite alternate;
+    -moz-animation:blink 1.3s ease-in-out infinite alternate;
+    animation:blink 1.3s ease-in-out infinite alternate;
+
+}
+.playerStatus.right.activePlayer{
+    position: relative;
+    top: 2px;
+    left: -6px;
+    display: inline-block;
+    width: 0px;
+    border-color: #d9534f;
+    border-style: solid;
+    border-width: 11px;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-animation:blink 1.3s ease-in-out infinite alternate;
+    -moz-animation:blink 1.3s ease-in-out infinite alternate;
+    animation:blink 1.3s ease-in-out infinite alternate;
+}
+.mainBorad{
+    background-image: url("../img/mainBoard.jpg");
+    background-size:contain;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+.square{
+    display: block;
+    width: 48px;
+    height: 48px;
+    float: left;
+    border: 1px solid black;
+}
+.square.playable{
+    /*opacity: 0.5;
+    background-color: #888;*/
+}
+.square.noPlayable{/* dummy */
+    opacity: 0.5;
+    background-color: #f33;
+}
+
+/* ELEMENT ZONE */
+  /* ELEMENT ZONE */
+    /* ELEMENT ZONE */
+      /* ELEMENT ZONE */
+      
+/* token */
+.white_side{
+    background: url("../img/flipping.png") no-repeat 0 0;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+.black_side{
+    background: url("../img/flipping.png") ;
+    background-position: -288px 0px;
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+.holding_side{
+    background-image: url("../img/holding_side.png");
+    background-size:contain;
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 48px;
+    float: left;
+}
+.inHand{
+    opacity: 0;
+}
+.flippable{
+    opacity: 0.5;    
+}
+.flipping_WtB{
+    background: url("../img/flipping.png") no-repeat 0 0;
+    -webkit-animation: play 0.5s steps(7) ;
+    animation: play 0.5s steps(7);
+}
+.flipping_BtW{
+    background: url("../img/flipping.png") no-repeat -336px 0;
+    -webkit-animation: play 0.5s reverse steps(7) ;
+    animation: play 0.5s reverse steps(7);
+}
+@-webkit-keyframes play {
+    0% {background-position: 0px 0;}
+    100% {background-position: -336px 0;}
+}
+@keyframes play {
+    0% {background-position: 0px 0;}
+    100% {background-position: -336px 0;}
+}
+
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+

@@ -1,0 +1,28 @@
+<fieldset>
+    <legend><h3>Create New GameTable?</h3></legend>
+    <form id="createGameTable">
+        <div>owner : <%= you.name %></div> 
+        <div>
+            <a>gameType :</a>
+            <select name="gameType" id="gameType_cng">
+                <% for (type of gameType){ %>
+                    <option value="<%= type.name %>"><%= type.name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <a>invitation :</a>
+            <select name="invitation" id="invitation_cng">
+                <option value="any_one">any_one</option>
+                <% for (user of loginUsers){ %>
+                    <% if ( user.name != you ) { %>
+                        <option class="user_id_<%= user._id %>" value="<%= user.name %>"><%= user.name %></option>
+                    <% } %>
+                <% } %>
+            </select>
+        </div>
+
+        <input id="createGameTableButton" class="btn btn-primary btn-sm" type="button" value="submit">
+        
+    </form>
+</fieldset>

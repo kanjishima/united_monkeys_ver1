@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta name="viewport" content="height=600px"/> -->
+        <title>osero</title>
+        <script src="/jquery.min.js"></script>
+        <script src="/TweenMax.js"></script>
+        <script src="/TimelineMax.js"></script>
+        <script src="jsSYS/system.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
+        <link type="text/css" href="css/jquery-ui.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <!-- AREA_ZONEs -->
+                <!-- AREA_ZONEs -->
+                        <!-- AREA_ZONEs -->
+                                <!-- AREA_ZONEs -->
+    <span id="main">
+        <div class="personalArea" id="PA_PL1">
+            <div class="playerInfo" id="PI_PL1"><span class="playerStatus left" id="PS_PL1_L"></span>BLACK<span class="playerStatus right" id="PS_PL1_R"></span></div>
+            <div class="playerTokensHold" id="PTH_PL1"></div>
+        </div>
+        <div class="mainBorad" id="mainBoard">
+            <span class="row_1">
+                <span class="column_A"><span class="square" id="A1"></span></span>
+                <span class="column_B"><span class="square" id="B1"></span></span>
+                <span class="column_C"><span class="square" id="C1"></span></span>
+                <span class="column_D"><span class="square" id="D1"></span></span>
+                <span class="column_E"><span class="square" id="E1"></span></span>
+                <span class="column_F"><span class="square" id="F1"></span></span>
+                <span class="column_G"><span class="square" id="G1"></span></span>
+                <span class="column_H"><span class="square" id="H1"></span></span>
+            </span>
+            <span class="row_2">
+                <span class="column_A"><span class="square" id="A2"></span></span>
+                <span class="column_B"><span class="square" id="B2"></span></span>
+                <span class="column_C"><span class="square" id="C2"></span></span>
+                <span class="column_D"><span class="square" id="D2"></span></span>
+                <span class="column_E"><span class="square" id="E2"></span></span>
+                <span class="column_F"><span class="square" id="F2"></span></span>
+                <span class="column_G"><span class="square" id="G2"></span></span>
+                <span class="column_H"><span class="square" id="H2"></span></span>
+            </span> 
+            <span class="row_3">
+                <span class="column_A"><span class="square" id="A3"></span></span>
+                <span class="column_B"><span class="square" id="B3"></span></span>
+                <span class="column_C"><span class="square" id="C3"></span></span>
+                <span class="column_D"><span class="square" id="D3"></span></span>
+                <span class="column_E"><span class="square" id="E3"></span></span>
+                <span class="column_F"><span class="square" id="F3"></span></span>
+                <span class="column_G"><span class="square" id="G3"></span></span>
+                <span class="column_H"><span class="square" id="H3"></span></span>
+            </span> 
+            <span class="row_4">
+                <span class="column_A"><span class="square" id="A4"></span></span>
+                <span class="column_B"><span class="square" id="B4"></span></span>
+                <span class="column_C"><span class="square" id="C4"></span></span>
+                <span class="column_D"><span class="square" id="D4"></span></span>
+                <span class="column_E"><span class="square" id="E4"></span></span>
+                <span class="column_F"><span class="square" id="F4"></span></span>
+                <span class="column_G"><span class="square" id="G4"></span></span>
+                <span class="column_H"><span class="square" id="H4"></span></span>
+            </span>
+            <span class="row_5">
+                <span class="column_A"><span class="square" id="A5"></span></span>
+                <span class="column_B"><span class="square" id="B5"></span></span>
+                <span class="column_C"><span class="square" id="C5"></span></span>
+                <span class="column_D"><span class="square" id="D5"></span></span>
+                <span class="column_E"><span class="square" id="E5"></span></span>
+                <span class="column_F"><span class="square" id="F5"></span></span>
+                <span class="column_G"><span class="square" id="G5"></span></span>
+                <span class="column_H"><span class="square" id="H5"></span></span>
+            </span>
+            <span class="row_6">
+                <span class="column_A"><span class="square" id="A6"></span></span>
+                <span class="column_B"><span class="square" id="B6"></span></span>
+                <span class="column_C"><span class="square" id="C6"></span></span>
+                <span class="column_D"><span class="square" id="D6"></span></span>
+                <span class="column_E"><span class="square" id="E6"></span></span>
+                <span class="column_F"><span class="square" id="F6"></span></span>
+                <span class="column_G"><span class="square" id="G6"></span></span>
+                <span class="column_H"><span class="square" id="H6"></span></span>
+            </span>
+            <span class="row_7">
+                <span class="column_A"><span class="square" id="A7"></span></span>
+                <span class="column_B"><span class="square" id="B7"></span></span>
+                <span class="column_C"><span class="square" id="C7"></span></span>
+                <span class="column_D"><span class="square" id="D7"></span></span>
+                <span class="column_E"><span class="square" id="E7"></span></span>
+                <span class="column_F"><span class="square" id="F7"></span></span>
+                <span class="column_G"><span class="square" id="G7"></span></span>
+                <span class="column_H"><span class="square" id="H7"></span></span>
+            </span>
+            <span class="row_8">
+                <span class="column_A"><span class="square" id="A8"></span></span>
+                <span class="column_B"><span class="square" id="B8"></span></span>
+                <span class="column_C"><span class="square" id="C8"></span></span>
+                <span class="column_D"><span class="square" id="D8"></span></span>
+                <span class="column_E"><span class="square" id="E8"></span></span>
+                <span class="column_F"><span class="square" id="F8"></span></span>
+                <span class="column_G"><span class="square" id="G8"></span></span>
+                <span class="column_H"><span class="square" id="H8"></span></span>
+            </span>
+        </div>
+        <div class="personalArea" id="PA_PL2">
+            <div class="playerTokensHold" id="PTH_PL2"></div>
+            <div class="playerInfo" id="PI_PL2"><span class="playerStatus left" id="PS_PL2_L"></span>WHITE<span class="playerStatus right" id="PS_PL2_R"></span></div>
+        </div>
+        <div class="outherNote">Sound Effect from　魔王魂</div>
+        <div id="systemMessage"></div>
+    </span>
+       
+        
+        <!-- ELEMENT_ZONEs -->
+                <!-- ELEMENT_ZONEs -->
+                        <!-- ELEMENT_ZONEs -->
+                                <!-- ELEMENT_ZONEs -->
+        <span class="token holding_side" id="token_ID1"></span>
+        <span class="token holding_side" id="token_ID2"></span>
+        <span class="token holding_side" id="token_ID3"></span>
+        <span class="token holding_side" id="token_ID4"></span>
+        <span class="token holding_side" id="token_ID5"></span>
+        <span class="token holding_side" id="token_ID6"></span>
+        <span class="token holding_side" id="token_ID7"></span>
+        <span class="token holding_side" id="token_ID8"></span>
+        <span class="token holding_side" id="token_ID9"></span>
+        <span class="token holding_side" id="token_ID10"></span>
+        <span class="token holding_side" id="token_ID11"></span>
+        <span class="token holding_side" id="token_ID12"></span>
+        <span class="token holding_side" id="token_ID13"></span>
+        <span class="token holding_side" id="token_ID14"></span>
+        <span class="token holding_side" id="token_ID15"></span>
+        <span class="token holding_side" id="token_ID16"></span>
+        <span class="token holding_side" id="token_ID17"></span>
+        <span class="token holding_side" id="token_ID18"></span>
+        <span class="token holding_side" id="token_ID19"></span>
+        <span class="token holding_side" id="token_ID20"></span>
+        <span class="token holding_side" id="token_ID21"></span>
+        <span class="token holding_side" id="token_ID22"></span>
+        <span class="token holding_side" id="token_ID23"></span>
+        <span class="token holding_side" id="token_ID24"></span>
+        <span class="token holding_side" id="token_ID25"></span>
+        <span class="token holding_side" id="token_ID26"></span>
+        <span class="token holding_side" id="token_ID27"></span>
+        <span class="token holding_side" id="token_ID28"></span>
+        <span class="token holding_side" id="token_ID29"></span>
+        <span class="token holding_side" id="token_ID30"></span>
+        <span class="token holding_side" id="token_ID31"></span>
+        <span class="token holding_side" id="token_ID32"></span>
+        <span class="token holding_side" id="token_ID33"></span>
+        <span class="token holding_side" id="token_ID34"></span>
+        <span class="token holding_side" id="token_ID35"></span>
+        <span class="token holding_side" id="token_ID36"></span>
+        <span class="token holding_side" id="token_ID37"></span>
+        <span class="token holding_side" id="token_ID38"></span>
+        <span class="token holding_side" id="token_ID39"></span>
+        <span class="token holding_side" id="token_ID40"></span>
+        <span class="token holding_side" id="token_ID41"></span>
+        <span class="token holding_side" id="token_ID42"></span>
+        <span class="token holding_side" id="token_ID43"></span>
+        <span class="token holding_side" id="token_ID44"></span>
+        <span class="token holding_side" id="token_ID45"></span>
+        <span class="token holding_side" id="token_ID46"></span>
+        <span class="token holding_side" id="token_ID47"></span>
+        <span class="token holding_side" id="token_ID48"></span>
+        <span class="token holding_side" id="token_ID49"></span>
+        <span class="token holding_side" id="token_ID50"></span>
+        <span class="token holding_side" id="token_ID51"></span>
+        <span class="token holding_side" id="token_ID52"></span>
+        <span class="token holding_side" id="token_ID53"></span>
+        <span class="token holding_side" id="token_ID54"></span>
+        <span class="token holding_side" id="token_ID55"></span>
+        <span class="token holding_side" id="token_ID56"></span>
+        <span class="token holding_side" id="token_ID57"></span>
+        <span class="token holding_side" id="token_ID58"></span>
+        <span class="token holding_side" id="token_ID59"></span>
+        <span class="token holding_side" id="token_ID60"></span>
+        <span class="token holding_side" id="token_ID61"></span>
+        <span class="token holding_side" id="token_ID62"></span>
+        <span class="token holding_side" id="token_ID63"></span>
+        <span class="token holding_side" id="token_ID64"></span>
+
+        
+        <script src="js/config.js"></script>
+        <script src="js/GAMESTATE.js"></script>
+        <script src="js/PHASEs.js"></script>
+        <script src="js/minuteFunctions.js"></script>        
+        <script src="jsSYS/KICKER.js"></script>
+    
+    </body>
+</html>
