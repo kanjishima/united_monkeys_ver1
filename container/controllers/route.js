@@ -62,5 +62,5 @@ exports.osero = function(req,res){
     var query ={
         you : req.session.user,
     };
-    res.render('.././xGames/osero/index.ejs', query);
+    res.render('.././xGames/osero/views/index.ejs', query);
 };

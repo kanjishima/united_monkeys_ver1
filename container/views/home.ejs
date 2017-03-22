@@ -24,9 +24,10 @@
         
         <script>
             $(function(){
-                var socket = io.connect();
+                var hostname = window.location.hostname ;
+                var socket = io.connect('https://'+hostname+'/home');
                 
-                socket.emit('loadHome');
+                socket.emit('loadHome',"<%= you %>");
                 socket.on('reloadHome',function(){
                     socket.emit('loadHome');
                 })

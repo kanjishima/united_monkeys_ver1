@@ -2,8 +2,9 @@
 var thisFileName = "config.js"
 console.log(thisFileName + " ok?");
 
+//var audioNames = ["puttingPen","fallSmall","fallMiddle","WIN","question"];
 var audioNames = ["puttingPen","fallSmall","fallMiddle","WIN","question"];
-var audioFilePath = "../osero/audio/";
+var audioFilePath = "/osero/xPublic/audio/";
 
 var viewPxWidth  = 400;
 var viewPxHeight = 600;

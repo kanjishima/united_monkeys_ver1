@@ -36,7 +36,8 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());//req.body for nodeUnderstandable.
 app.use(morgan("dev"));//logmessage for dvelopmentMode
-app.use(express.static(__dirname+"/container/xPublic"));//staticFiles are in xpublic.requestParam is just "FILE_NAME".
+app.use(express.static(__dirname+"/container/xPublic"));
+app.use(express.static(__dirname+"/container/xGames"));//staticFiles are in xpublic.requestParam is just "FILE_NAME".
 app.use(cookieParser());//cookei-parser needed for session
 
 var sessionUse = session({
@@ -57,10 +58,11 @@ app.get ( '/'      , route.loginCheck , route.root );
 app.get ('/login'  , route.login     );
 app.get ('/logout' , route.logout    );
 app.post('/add'    , route.add       );
-app.get ('/osero/:id',route.osero     );
+
 
 //socket-rooting (access to /controllers/socketRouter.js")
-io.on('connection', function(socket){
+var homeIo = io.of('/home');
+homeIo.on('connection', function(socket){
     socketRouter.start(io);
     socket.on( 'loadHome'         ,function(data){ socketRouter.loadHome(socket,data)           });
     socket.on( 'createGameTable'  ,function(data){ socketRouter.createGameTable(socket,data)    });
@@ -69,4 +71,8 @@ io.on('connection', function(socket){
     socket.on( 'seating'          ,function(data){ socketRouter.seating(socket,data)            });
 });
 
+app.get ('/osero/:id',route.osero     );
+var oseroIo = io.of('/osero');
+
 server.listen(process.env.PORT);
+

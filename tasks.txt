@@ -13,11 +13,13 @@
 /dataQuery => dbQuery its self
 /viewPartsQuery => clientSide ejs html code
 
-
-
 /gameTable seated/not_yet/leave_seat option and seatingButton!(and leavingButton)
 
-
+//osero optimize sockets version
+/avoid include
+/optimize include
+=>solo version in socketsProject
+/descrive socketRouter for osero
 
 
 
@@ -27,3 +29,10 @@ $ mongo ds127190.mlab.com:27190/umvo -u test -p test
 
 //heroku server logs
 $ heroku logs -t
+
+//git addCommit
+git add .
+git commit -m "COMMENT"
+
+//git remote
+git push -u origin master

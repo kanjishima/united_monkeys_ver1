@@ -41,9 +41,10 @@ exports.start = function(onIo){
 };
 
 //set soket_router
-exports.loadHome = function(socket){
+exports.loadHome = function(socket,data){
     console.log("loadHome");
-    var yourName = socket.handshake.session.user;
+    var yourName = data ;
+    console.log(yourName);
     async.series(
         [
             function(next){
@@ -125,8 +126,6 @@ exports.logout = function(socket,logoutUserName){
             var dataQuery = {
                 "user" :  results[1] ,
             };
-            //socket.emit("removeLoginUser",dataQuery);
-            //socket.broadcast.emit("removeLoginUser",dataQuery);
             io.sockets.emit("removeLoginUser",dataQuery);
         }
     );
@@ -159,8 +158,9 @@ exports.seating = function(socket,query){
             var gameTable = peelSingleObject(results[2]);
             socket.join("gametable_id_"+gameTable._id);
             console.log("join:","gametable_id_"+gameTable._id);            
-            if ( gameTable.seatStatus == "seated" ) {//
-                io.sockets.to("gametable_id_"+gameTable._id).emit("goGameRoom",gameTable);
+            if ( gameTable.seatStatus == "seated" ) {// <= replace if all invitations are in seated,
+                console.log("seated");
+                io.of('/home').in("gametable_id_"+gameTable._id).emit("goGameRoom",gameTable);
             }else{
                 socket.emit("reloadHome");
             }

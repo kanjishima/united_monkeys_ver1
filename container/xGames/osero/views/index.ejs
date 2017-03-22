@@ -1,18 +1,28 @@
+<% /*
 <!DOCTYPE html>
 <html lang="ja">
     <head>
         <meta charset="utf-8">
         <!-- <meta name="viewport" content="height=600px"/> -->
         <title>osero</title>
-        <script src="/jquery.min.js"></script>
-        <script src="/TweenMax.js"></script>
-        <script src="/TimelineMax.js"></script>
+        <script src="jsSYS/jquery-3.1.1.min.js"></script>
+        <script src="jsSYS/jquery-ui.min.js"></script>
+        <script src="jsSYS/TweenMax.js"></script>
+        <script src="jsSYS/TimelineMax.js"></script>
         <script src="jsSYS/system.js"></script>
         <link rel="stylesheet" href="css/styles.css">
         <link type="text/css" href="css/jquery-ui.css" rel="stylesheet">
     </head>
     <body>
-        
+*/ %>
+<% include ../../../views/templates/header.ejs %>
+<%
+//indent x2>> 
+%>        
+<link rel="stylesheet" href="/osero/xPublic/css/styles.css">
+<script src="/TweenMax.js"></script>
+<script src="/TimelineMax.js"></script>
+<script src="/osero/xPublic/js/system.js"></script>
         <!-- AREA_ZONEs -->
                 <!-- AREA_ZONEs -->
                         <!-- AREA_ZONEs -->
@@ -182,12 +192,12 @@
         <span class="token holding_side" id="token_ID63"></span>
         <span class="token holding_side" id="token_ID64"></span>
 
-        
-        <script src="js/config.js"></script>
-        <script src="js/GAMESTATE.js"></script>
-        <script src="js/PHASEs.js"></script>
-        <script src="js/minuteFunctions.js"></script>        
-        <script src="jsSYS/KICKER.js"></script>
+ 
+        <script src="/osero/xPublic/js/config.js"></script>
+        <script src="/osero/xPublic/js/GAMESTATE.js"></script>
+        <script src="/osero/xPublic/js/PHASEs.js"></script>
+        <script src="/osero/xPublic/js/minuteFunctions.js"></script>        
+        <script src="/osero/xPublic/js/KICKER.js"></script>
     
-    </body>
-</html>
+
+<% include ../../../views/templates/footer.ejs %>
