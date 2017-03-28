@@ -5,7 +5,24 @@
 
 
 <div id="container">
+    <div>
+        <img src="/img/face_smile_woman1.png"  class="opponentAppearance waiting active"></img>
+        <img src="/img/face_smile_woman4.png" class="opponentAppearance lose"></img>
+        <img src="/img/face_angry_woman2.png"  class="opponentAppearance aiko"></img>
+        <img src="/img/face_angry_woman4.png"  class="opponentAppearance win"></img>
+        <img src="/img/pose_furikaeru_woman.png"  class="opponentAppearance ready"></img>
+    </div>
     <div id="loginMember"></div>
+    <div>
+        <img src="/img/janken_choki_opp.png"  class="oppoHand choki"></img>
+        <img src="/img/janken_gu_opp.png"  class="oppoHand goo"></img>
+        <img src="/img/janken_pa_opp.png"   class="oppoHand pa"></img>
+    </div>
+    <div>
+        <img src="/img/janken_choki.png"  class="yourHand choki"></img>
+        <img src="/img/janken_gu.png"  class="yourHand goo"></img>
+        <img src="/img/janken_pa.png"  class="yourHand pa"></img>       
+    </div>
     <img src="/img/janken_gu.png" class="handSelect" id="goo"></img>
     <img src="/img/janken_choki.png" class="handSelect" id="choki"></img>
     <img src="/img/janken_pa.png" class="handSelect" id="pa"></img>
@@ -28,38 +45,60 @@
         });
         $("#goo").on('click',function(){
             if(handFlag == false){
-                $("#gameMessage").html("");
-                socket.emit("hand","goo");
                 handFlag = true;
+                socket.emit("getReady","<%= you %>");
+                $("#gameMessage").html("");
+                $(".yourHand").removeClass("active");
+                $(".oppoHand").removeClass("active");
+                $(".opponentAppearance").removeClass("active");
+                $("img[class='opponentAppearance waiting']").addClass("active");
+                $("img[class='yourHand goo']").addClass("active");
+                socket.emit("hand","goo");
             }
         });
          $("#choki").on('click',function(){
             if(handFlag == false){
-                $("#gameMessage").html("");
-                socket.emit("hand","choki");
                 handFlag = true;
+                $("#gameMessage").html("");
+                $(".yourHand").removeClass("active");
+                $(".oppoHand").removeClass("active");
+                $(".opponentAppearance").removeClass("active");
+                $("img[class='opponentAppearance waiting']").addClass("active");
+                $("img[class='yourHand choki']").addClass("active");
+                socket.emit("hand","choki");
             }
         });
          $("#pa").on('click',function(){
             if(handFlag == false){
-                $("#gameMessage").html("");
-                socket.emit("hand","paa!");
                 handFlag = true;
+                $("#gameMessage").html("");
+                $(".yourHand").removeClass("active");
+                $(".oppoHand").removeClass("active");
+                $(".opponentAppearance").removeClass("active");
+                $("img[class='opponentAppearance waiting']").addClass("active");
+                $("img[class='yourHand pa']").addClass("active");
+                socket.emit("hand","paa!");
             }
         });
         socket.on("enterNewUser",function(){
             socket.emit("responseUserName","<%= you %>");
-        })
+        });
+        socket.on("oppGetReady",function(data){
+             $(".opponentAppearance").removeClass("active");
+             $("img[class='opponentAppearance ready']").addClass("active");
+        });
         socket.on("message",function(data){
             $("#gameMessage").append("<div>"+data+"</div>");
-        })
+        });
         socket.on("PON!",function(data){
             handFlag = false;
-            $("#gameMessage").append("<div>"+data+"</div>");
-        })
-        socket.on("results",function(data){
-            console.log(data);
-        })
+            $(".opponentAppearance").removeClass("active");
+            $("img[class='opponentAppearance "+data[0]+"']").addClass("active");            
+            //$("#gameMessage").append("<div>"+data[0]+"</div>");
+            $("img[class='oppoHand "+data[1]+"']").addClass("active");
+            console.log("img[class='oppoHand "+data[1]+"']");
+        });
+
     });
 </script>
 <style type="text/css">
@@ -68,14 +107,27 @@
         text-align: center;
     }
     #loginMember{
-        margin-top: 30px;
-        margin-bottom: 30px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+    .opponentAppearance{
+        width: 120px;
+    }
+    .opponentAppearance:not(.active){
+        display : none;
+    }
+    .oppoHand,.yourHand{
+        width: 120px;
+    }
+    .oppoHand:not(.active),.yourHand:not(.active){
+        display : none;
     }
     .handSelect{
         display: inline;
         margin: 20px;
-        width: 100px;
+        width: 80px;
     }
+
     #gameMessage{
         font-size : 30px;
     }

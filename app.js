@@ -79,15 +79,18 @@ var jankenIo = io.of('/janken');
 var handDmp = [];
 jankenIo.on('connection', function(socket){
     socket.on("loadJanken",function(data){
-        socket.emit("loginMember","<div class='you'>you are "+data+"</div>");
-        socket.broadcast.emit("loginMember","<div class='opp'>oppornent is "+data+"</div>");
+        //socket.emit("loginMember","<div class='you'>you are "+data+"</div>");
+        socket.broadcast.emit("loginMember","<div class='opp'>oppo :"+data+"</div>");
         socket.broadcast.emit("enterNewUser",data);
     });
     socket.on("responseUserName",function(data){
-        socket.broadcast.emit("loginOpp","<div class='opp'>oppornent is "+data+"</div>");
+        socket.broadcast.emit("loginOpp","<div class='opp'>oppo :"+data+"</div>");
+    });
+    socket.on("getReady",function(data){
+        socket.broadcast.emit("oppGetReady",data);
     });
     socket.on("hand",function(data){
-        socket.emit("message","your hand is "+data);
+        //socket.emit("message","your hand is "+data);
         handDmp.push(data);
         if(handDmp.length >= 2){
             var yourHand = handDmp[1];
@@ -113,11 +116,13 @@ jankenIo.on('connection', function(socket){
             var query = {
                 you : you,
                 opp : opp,
+                yourHand :yourHand,
+                oppoHand :oppoHand,
             };
             handDmp = [];
             setTimeout(function(){
-                socket.emit("PON!",query.you);
-                socket.broadcast.emit("PON!",query.opp);
+                socket.emit("PON!",[query.you,query.oppoHand]);
+                socket.broadcast.emit("PON!",[query.opp,query.yourHand]);
             },1000);
         }
     });
