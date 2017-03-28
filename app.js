@@ -96,7 +96,14 @@ jankenIo.on('connection', function(socket){
             var yourHand = handDmp[1];
             var oppoHand = handDmp[0];
             
-            var hantei = ( String(yourHand).length - String(oppoHand).length + 3 ) % 3;
+            var handSTR = {
+                "pa"   : 2,
+                "goo"  : 1,
+                "choki": 0,
+            };
+            
+            var hantei = ( handSTR[yourHand] - handSTR[oppoHand] + 3 ) % 3;
+            console.log(hantei);
             var you,opp;
             
             switch (hantei){

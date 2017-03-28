@@ -77,7 +77,7 @@
                 $(".opponentAppearance").removeClass("active");
                 $("img[class='opponentAppearance waiting']").addClass("active");
                 $("img[class='yourHand pa']").addClass("active");
-                socket.emit("hand","paa!");
+                socket.emit("hand","pa");
             }
         });
         socket.on("enterNewUser",function(){
@@ -93,10 +93,11 @@
         socket.on("PON!",function(data){
             handFlag = false;
             $(".opponentAppearance").removeClass("active");
-            $("img[class='opponentAppearance "+data[0]+"']").addClass("active");            
+            $("img[class='opponentAppearance "+data[0]+"']").addClass("active");
+            console.log("img[class='opponentAppearance "+data[0]+"']");
             //$("#gameMessage").append("<div>"+data[0]+"</div>");
             $("img[class='oppoHand "+data[1]+"']").addClass("active");
-            console.log("img[class='oppoHand "+data[1]+"']");
+            //console.log("img[class='oppoHand "+data[1]+"']");
         });
 
     });
