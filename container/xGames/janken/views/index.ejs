@@ -1,0 +1,84 @@
+<% include ../../../views/templates/header.ejs %>
+<%
+//indent x2>> 
+%>
+
+
+<div id="container">
+    <div id="loginMember"></div>
+    <img src="/img/janken_gu.png" class="handSelect" id="goo"></img>
+    <img src="/img/janken_choki.png" class="handSelect" id="choki"></img>
+    <img src="/img/janken_pa.png" class="handSelect" id="pa"></img>
+    <div id="gameMessage"></div>
+</div>
+<script>
+    $(function(){
+        var hostname = window.location.hostname ;
+        var socket = io.connect('https://'+hostname+'/janken');
+        
+        var handFlag = false;
+        
+        socket.emit("loadJanken","<%= you %>");
+        socket.on("loginMember",function(data){
+            $(".opp").remove();
+            $("#loginMember").append(data);
+        });
+        socket.on("loginOpp",function(data){
+            $("#loginMember").append(data);
+        });
+        $("#goo").on('click',function(){
+            if(handFlag == false){
+                $("#gameMessage").html("");
+                socket.emit("hand","goo");
+                handFlag = true;
+            }
+        });
+         $("#choki").on('click',function(){
+            if(handFlag == false){
+                $("#gameMessage").html("");
+                socket.emit("hand","choki");
+                handFlag = true;
+            }
+        });
+         $("#pa").on('click',function(){
+            if(handFlag == false){
+                $("#gameMessage").html("");
+                socket.emit("hand","paa!");
+                handFlag = true;
+            }
+        });
+        socket.on("enterNewUser",function(){
+            socket.emit("responseUserName","<%= you %>");
+        })
+        socket.on("message",function(data){
+            $("#gameMessage").append("<div>"+data+"</div>");
+        })
+        socket.on("PON!",function(data){
+            handFlag = false;
+            $("#gameMessage").append("<div>"+data+"</div>");
+        })
+        socket.on("results",function(data){
+            console.log(data);
+        })
+    });
+</script>
+<style type="text/css">
+    #container{
+        font-size : 30px;
+        text-align: center;
+    }
+    #loginMember{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .handSelect{
+        display: inline;
+        margin: 20px;
+        width: 100px;
+    }
+    #gameMessage{
+        font-size : 30px;
+    }
+
+</style>
+<% include ../../../views/templates/footer.ejs %>

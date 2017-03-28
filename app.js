@@ -74,5 +74,54 @@ homeIo.on('connection', function(socket){
 app.get ('/osero/:id',route.osero     );
 var oseroIo = io.of('/osero');
 
+app.get ('/janken/:id',route.janken    );
+var jankenIo = io.of('/janken');
+var handDmp = [];
+jankenIo.on('connection', function(socket){
+    socket.on("loadJanken",function(data){
+        socket.emit("loginMember","<div class='you'>you are "+data+"</div>");
+        socket.broadcast.emit("loginMember","<div class='opp'>oppornent is "+data+"</div>");
+        socket.broadcast.emit("enterNewUser",data);
+    });
+    socket.on("responseUserName",function(data){
+        socket.broadcast.emit("loginOpp","<div class='opp'>oppornent is "+data+"</div>");
+    });
+    socket.on("hand",function(data){
+        socket.emit("message","your hand is "+data);
+        handDmp.push(data);
+        if(handDmp.length >= 2){
+            var yourHand = handDmp[1];
+            var oppoHand = handDmp[0];
+            
+            var hantei = ( String(yourHand).length - String(oppoHand).length + 3 ) % 3;
+            var you,opp;
+            
+            switch (hantei){
+                case 0:
+                    you = "aiko";
+                    opp = "aiko";
+                    break;
+                case 1:
+                    you = "win" ;
+                    opp = "lose";
+                    break;
+                case 2:
+                    you = "lose";
+                    opp = "win" ;
+                    break;
+            }
+            var query = {
+                you : you,
+                opp : opp,
+            };
+            handDmp = [];
+            setTimeout(function(){
+                socket.emit("PON!",query.you);
+                socket.broadcast.emit("PON!",query.opp);
+            },1000);
+        }
+    });
+});
+
 server.listen(process.env.PORT);
 

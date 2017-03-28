@@ -64,3 +64,10 @@ exports.osero = function(req,res){
     };
     res.render('.././xGames/osero/views/index.ejs', query);
 };
+exports.janken = function(req,res){
+    console.log("janken");
+    var query ={
+        you : req.session.user,
+    };
+    res.render('.././xGames/janken/views/index.ejs', query);
+};
