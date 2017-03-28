@@ -80,11 +80,11 @@ var handDmp = [];
 jankenIo.on('connection', function(socket){
     socket.on("loadJanken",function(data){
         //socket.emit("loginMember","<div class='you'>you are "+data+"</div>");
-        socket.broadcast.emit("loginMember","<div class='opp'>oppo :"+data+"</div>");
+        //socket.broadcast.emit("loginMember","<div class='opp'>oppo :"+data+"</div>");
         socket.broadcast.emit("enterNewUser",data);
     });
     socket.on("responseUserName",function(data){
-        socket.broadcast.emit("loginOpp","<div class='opp'>oppo :"+data+"</div>");
+        //socket.broadcast.emit("loginOpp","<div class='opp'>oppo :"+data+"</div>");
     });
     socket.on("getReady",function(data){
         socket.broadcast.emit("oppGetReady",data);
