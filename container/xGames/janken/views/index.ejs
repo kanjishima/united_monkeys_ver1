@@ -59,6 +59,7 @@
          $("#choki").on('click',function(){
             if(handFlag == false){
                 handFlag = true;
+                socket.emit("getReady","<%= you %>");
                 $("#gameMessage").html("");
                 $(".yourHand").removeClass("active");
                 $(".oppoHand").removeClass("active");
@@ -71,6 +72,7 @@
          $("#pa").on('click',function(){
             if(handFlag == false){
                 handFlag = true;
+                socket.emit("getReady","<%= you %>");
                 $("#gameMessage").html("");
                 $(".yourHand").removeClass("active");
                 $(".oppoHand").removeClass("active");
