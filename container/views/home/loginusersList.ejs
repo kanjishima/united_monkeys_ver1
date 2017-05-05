@@ -1,6 +1,8 @@
 <% for (user of loginUsers){ %>
-    <div class="user_id_<%= user._id %>">
+    <div class="user_id_<%= user._id %> loginUser">
+        <img src="home/assets/images/avatar.jpg" width="23px" alt="">
         <%= user.name %>
-        <a class="where"><%= user.where %></a>
+        <a href="usersPage">visit users page</a>
+        <!-- <a class="where"><%= user.where %></a> -->
     </div>
 <% } %>

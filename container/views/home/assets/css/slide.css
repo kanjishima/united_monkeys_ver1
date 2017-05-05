@@ -1,0 +1,94 @@
+@charset "utf-8";
+
+
+/*CSSスライドショー設定
+---------------------------------------------------------------------------*/
+/*１枚目*/
+@keyframes slide1 {
+	0% {opacity: 1;}
+	30% {opacity: 1;}
+	40% {opacity: 0;}
+	100% {opacity: 0;}
+}
+/*２枚目*/
+@keyframes slide2 {
+	0% {opacity: 0;}
+	20% {opacity: 0;}
+	30% {opacity: 1;}
+	60% {opacity: 1;}
+	70% {opacity: 0;}
+	100% {opacity: 0;}
+}
+/*３枚目*/
+@keyframes slide3 {
+	0% {opacity: 0;}
+	50% {opacity: 0;}
+	60% {opacity: 1;}
+	90% {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+/*mainimg
+---------------------------------------------------------------------------*/
+/*画像ブロック*/
+#mainimg {
+	width: 96%;	/*画像がブラウザ幅一杯にならないように設定*/
+	margin-left: 2%;
+	position: absolute;
+}
+#mainimg div {
+	position: relative;
+	max-width: 1400px;	/*画像の最大幅の指定*/
+	margin: 0 auto;
+	border-radius: 0px 0px 200px 200px;	/*角丸のサイズ。左上、右上、右下、左下。*/
+}
+/*３枚画像の共通設定*/
+#slide1,#slide2,#slide3 {
+	-webkit-animation-duration: 15s;	/*実行する時間。「s」は秒の事。*/
+	animation-duration: 15s;			/*同上*/
+	-webkit-animation-iteration-count:infinite;	/*実行する回数。「infinite」は無限に繰り返す意味。*/
+	animation-iteration-count:infinite;			/*同上*/
+	border-radius: 0px 0px 200px 200px;			/*角丸のサイズ。左上、右上、右下、左下。*/
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	position: absolute;left:0px;top:0px;width: 100%;height: auto;
+}
+/*土台画像*/
+#slide0 {
+	position: relative;width: 100%;height: auto;
+	border-radius: 0px 0px 200px 200px;	/*角丸のサイズ。左上、右上、右下、左下。*/
+}
+/*１枚目*/
+#slide1 {
+	-webkit-animation-name: slide1;		/*上で設定しているキーフレーム（keyframes）の名前*/
+	animation-name: slide1;				/*同上*/
+}
+/*２枚目*/
+#slide2 {
+	-webkit-animation-name: slide2;		/*上で設定しているキーフレーム（keyframes）の名前*/
+	animation-name: slide2;				/*同上*/
+}
+/*３枚目*/
+#slide3 {
+	-webkit-animation-name: slide3;
+	animation-name: slide3;
+}
+
+
+
+/*画面幅800px以下の設定
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
+@media screen and (max-width:800px){
+
+/*画像ブロック*/
+#mainimg {
+	width: 100%;
+	margin-left: 0%;
+}
+
+/*画像ブロックと３枚画像の共通設定*/
+#mainimg div,#slide1,#slide2,#slide3 {
+	border-radius: 0px;	
+}
+
+}

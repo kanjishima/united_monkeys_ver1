@@ -1,14 +1,13 @@
 
 <% if(gameTable){ %>
 <% for (table of gameTable ){ %>
-    <div class="gameTable_id_<%= table._id %>" id="<%= table._id %>">
-        <div class="status col-sm-2"><%= table.status %></div>
-        <div class="gametype col-sm-1"><%= table.gametype %></div>
-        <div class="owner col-sm-1"><%= table.owner %></div>
-        <div class="participants col-sm-2"><%= table.participants %></div>
-        <div class="participants col-sm-2"><%= table.seatStatus %></div>
-        <div class="seating btn btn-primary col-sm-2">JOIN!</div>
-        <div class="removeGameTable btn btn-danger col-sm-2" id="<%= table._id %>">DELETE!</div>
+    <div class="gameTable_id_<%= table._id %> box1" id="<%= table._id %>">
+        <div class="status">テーブル状況<%= table.status %></div>
+        <div class="gametype">ゲームタイプ<%= table.gametype %></div>
+        <div class="owner">主催者<%= table.owner %></div>
+        <div class="participants">招待客<%= table.participants %></div>
+        <div class="seating btn btn-primary">参加!</div>
+        <div class="removeGameTable btn btn-danger" id="<%= table._id %>">削除!</div>
     </div>
 <% } %>
 <% } %>

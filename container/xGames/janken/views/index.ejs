@@ -6,35 +6,33 @@
 
 <div id="container">
     <div>
-        <img src="/img/face_smile_woman1.png"  class="opponentAppearance waiting active"></img>
-        <img src="/img/face_smile_woman4.png" class="opponentAppearance lose"></img>
-        <img src="/img/face_angry_woman2.png"  class="opponentAppearance aiko"></img>
-        <img src="/img/face_angry_woman4.png"  class="opponentAppearance win"></img>
-        <img src="/img/pose_furikaeru_woman.png"  class="opponentAppearance ready"></img>
+        <img src="/janken/img/face_smile_woman1.png"  class="opponentAppearance waiting active"></img>
+        <img src="/janken/img/face_smile_woman4.png" class="opponentAppearance lose"></img>
+        <img src="/janken/img/face_angry_woman2.png"  class="opponentAppearance aiko"></img>
+        <img src="/janken/img/face_angry_woman4.png"  class="opponentAppearance win"></img>
+        <img src="/janken/img/pose_furikaeru_woman.png"  class="opponentAppearance ready"></img>
     </div>
     <div id="loginMember"></div>
     <div>
-        <img src="/img/janken_choki_opp.png"  class="oppoHand choki"></img>
-        <img src="/img/janken_gu_opp.png"  class="oppoHand goo"></img>
-        <img src="/img/janken_pa_opp.png"   class="oppoHand pa"></img>
+        <img src="/janken/img/janken_choki_opp.png"  class="oppoHand choki"></img>
+        <img src="/janken/img/janken_gu_opp.png"  class="oppoHand goo"></img>
+        <img src="/janken/img/janken_pa_opp.png"   class="oppoHand pa"></img>
     </div>
     <div>
-        <img src="/img/janken_choki.png"  class="yourHand choki"></img>
-        <img src="/img/janken_gu.png"  class="yourHand goo"></img>
-        <img src="/img/janken_pa.png"  class="yourHand pa"></img>       
+        <img src="/janken/img/janken_choki.png"  class="yourHand choki"></img>
+        <img src="/janken/img/janken_gu.png"  class="yourHand goo"></img>
+        <img src="/janken/img/janken_pa.png"  class="yourHand pa"></img>       
     </div>
-    <img src="/img/janken_gu.png" class="handSelect" id="goo"></img>
-    <img src="/img/janken_choki.png" class="handSelect" id="choki"></img>
-    <img src="/img/janken_pa.png" class="handSelect" id="pa"></img>
+    <img src="/janken/img/janken_gu.png" class="handSelect" id="goo"></img>
+    <img src="/janken/img/janken_choki.png" class="handSelect" id="choki"></img>
+    <img src="/janken/img/janken_pa.png" class="handSelect" id="pa"></img>
     <div id="gameMessage"></div>
 </div>
 <script>
     $(function(){
         var hostname = window.location.hostname ;
         var socket = io.connect('https://'+hostname+'/janken');
-        
         var handFlag = false;
-        
         socket.emit("loadJanken","<%= you %>");
         socket.on("loginMember",function(data){
             $(".opp").remove();
@@ -97,11 +95,8 @@
             $(".opponentAppearance").removeClass("active");
             $("img[class='opponentAppearance "+data[0]+"']").addClass("active");
             console.log("img[class='opponentAppearance "+data[0]+"']");
-            //$("#gameMessage").append("<div>"+data[0]+"</div>");
             $("img[class='oppoHand "+data[1]+"']").addClass("active");
-            //console.log("img[class='oppoHand "+data[1]+"']");
         });
-
     });
 </script>
 <style type="text/css">

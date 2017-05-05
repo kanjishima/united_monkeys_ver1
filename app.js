@@ -36,8 +36,10 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());//req.body for nodeUnderstandable.
 app.use(morgan("dev"));//logmessage for dvelopmentMode
+app.use(express.static(__dirname+"/container/views"));
 app.use(express.static(__dirname+"/container/xPublic"));
 app.use(express.static(__dirname+"/container/xGames"));//staticFiles are in xpublic.requestParam is just "FILE_NAME".
+app.use(express.static(__dirname+"/container/views/usersPage"));
 app.use(cookieParser());//cookei-parser needed for session
 
 var sessionUse = session({
@@ -58,6 +60,9 @@ app.get ( '/'      , route.loginCheck , route.root );
 app.get ('/login'  , route.login     );
 app.get ('/logout' , route.logout    );
 app.post('/add'    , route.add       );
+app.get ('/usersPage', function(req,res){
+    res.render('usersPage/usersPage.ejs');
+});
 
 
 //socket-rooting (access to /controllers/socketRouter.js")
@@ -79,33 +84,26 @@ var jankenIo = io.of('/janken');
 var handDmp = [];
 jankenIo.on('connection', function(socket){
     socket.on("loadJanken",function(data){
-        //socket.emit("loginMember","<div class='you'>you are "+data+"</div>");
-        //socket.broadcast.emit("loginMember","<div class='opp'>oppo :"+data+"</div>");
         socket.broadcast.emit("enterNewUser",data);
     });
     socket.on("responseUserName",function(data){
-        //socket.broadcast.emit("loginOpp","<div class='opp'>oppo :"+data+"</div>");
     });
     socket.on("getReady",function(data){
         socket.broadcast.emit("oppGetReady",data);
     });
     socket.on("hand",function(data){
-        //socket.emit("message","your hand is "+data);
         handDmp.push(data);
         if(handDmp.length >= 2){
             var yourHand = handDmp[1];
             var oppoHand = handDmp[0];
-            
             var handSTR = {
                 "pa"   : 2,
                 "goo"  : 1,
                 "choki": 0,
             };
-            
             var hantei = ( handSTR[yourHand] - handSTR[oppoHand] + 3 ) % 3;
             console.log(hantei);
             var you,opp;
-            
             switch (hantei){
                 case 0:
                     you = "aiko";

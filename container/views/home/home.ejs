@@ -1,0 +1,196 @@
+<% include ../templates/header.ejs %>
+<%
+//indent x2>> 
+%>
+
+<link rel="stylesheet" href="home/assets/css/style.css">
+<link rel="stylesheet" href="home/assets/css/slide.css">
+
+<body id="top">
+
+    <!--スライドショー-->
+    <aside id="mainimg">
+        <div>
+            <img src="home/assets/images/1.jpg" alt="" id="slide0">
+            <img src="home/assets/images/1.jpg" alt="" id="slide1">
+            <img src="home/assets/images/2.jpg" alt="" id="slide2">
+            <img src="home/assets/images/3.jpg" alt="" id="slide3">
+        </div>
+    </aside>
+
+    <div id="container">
+
+        <!--小さな端末用（800px以下端末）-->
+        <h1 id="logo-s">UNITED MONKEYS online boadgame platform</h1>
+        <nav id="menubar-s">
+            <ul>
+                <li><a href="about.html">UMとは？<span>ABOUT</span></a></li>
+                <li><a href="info.html">利用規約<span>INFORMATION</span></a></li>
+                <!-- <li><a href="event.html">イベント<span>EVENT</span></a></li> -->
+                <li><a href="faq.html">よく頂く質問<span>FAQ</span></a></li>
+                <!-- <li><a href="recruit.html">採用情報<span>RECRUIT</span></a></li> -->
+                <li><a href="contact.html">お問い合わせ<span>CONTACT</span></a></li>
+            </ul>
+        </nav>
+        <!--/小さな端末用（800px以下端末）-->
+
+        <div id="contents">
+
+            <div id="main">
+                <div class="box1">
+          <section>            
+        <p>ようこそ<%= you %>さん! 　　　<a id="logout" class="btn btn-primary">ログアウト</a></p>
+        
+            
+        
+        </section>
+        </div>
+        <section>
+        <div id="loginUsers">
+            <h2>ログインユーザー</h2>
+            <section class="box1"><ul id="loginUsersList"></ul></section>
+        </div>
+        </section>
+        <section>
+        <div id="createGameTable"></div>
+        </section>
+        <section>
+        <div id="gameTables">
+            <h2>ゲーム卓一覧</h2>
+            <ul id="gameTablesList" ></ul>
+        </div>
+        </section>        
+                
+            </div>
+            
+            <div id="sub">
+
+                <!--大きな端末用（801px以上端末）-->
+                <h1 id="logo">UNITED MONKEYS</h1>
+                <nav id="menubar">
+                    <ul class="mb30">
+                        <!-- <li><a href="index.html">ホーム<span>HOME</span></a></li> -->
+                        <li><a href="about.html">UMとは？<span>ABOUT</span></a></li>
+                        <li><a href="info.html">利用規約<span>INFORMATION</span></a></li>
+                        <!-- <li><a href="event.html">イベント<span>EVENT</span></a></li> -->
+                        <li><a href="faq.html">よく頂く質問<span>FAQ</span></a></li>
+                        <!-- <li><a href="recruit.html">採用情報<span>RECRUIT</span></a></li> -->
+                        <li><a href="contact.html">お問い合わせ<span>CONTACT</span></a></li>
+                    </ul>
+                </nav>
+                <!--/大きな端末用（801px以上端末）-->
+                <!--
+                <nav class="box1">
+                    <h2>MENU</h2>
+                    <ul class="submenu">
+                        <li><a href="#">サンプルメニュー</a></li>
+                        <li><a href="#">サンプルメニュー</a></li>
+                        <li><a href="#">サンプルメニュー</a></li>
+                    </ul>
+                </nav>
+
+                <div class="box1">
+                    <section>
+                        <h2>この見出しはh2タグです</h2>
+                        <p>このボックスは、class="box1"と指定すれば出ます。</p>
+                    </section>
+                </div>
+                -->
+            </div>
+            <!--/sub-->
+
+        </div>
+        <!--/contents-->
+
+    <footer>
+        <small>Copyright&copy; <a href="index.html">SAMPLE KIDS CLUB</a> All Rights Reserved.</small>
+        <span class="pr"><a href="http://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+    </footer>
+
+</div>
+<!--/container-->
+
+<!--移動するアニメーション画像-->
+<!-- <img src="tp_kids3_green/images/animation1.png" alt="" id="animation1"> -->
+
+<!--小さな端末用（800px以下端末）更新情報-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("newinfo_hdr", "newinfo");
+}
+</script>
+
+
+
+
+
+
+
+        
+        <script>
+            $(function(){
+                var hostname = window.location.hostname ;
+                var socket = io.connect('https://'+hostname+'/home');
+                
+                socket.emit('loadHome',"<%= you %>");
+                socket.on('reloadHome',function(){
+                    socket.emit('loadHome');
+                })
+                
+                socket.on('loadHome' ,function(data){
+                    $("#loginUsersList").append(data.loginusersList);
+                    $("#createGameTable").append(data.createGameTable);
+                    $("#gameTablesList").append(data.gameTableList);
+                });
+                socket.on('removeLoginUser',function(data){
+                    $(".user_id_"+ data.user[0]._id ).remove();
+                });
+
+                $("#logout").on("click",function(){
+                    socket.emit("logout","<%= you %>");
+                    //location.href='/login';
+                    console.log("hello!!");
+                });
+     
+                socket.on("addGameTable",function(data){
+                    $("#gameTablesList").append(data.gameTableList);
+                });
+                $("#createGameTable").on("click","#createGameTableButton",function(){
+                    var query ={
+                        "owner"       : "<%= you %>",
+                        "gametype"    : $("#gameType_cng").val(),
+                        "status"      : "scheduled",
+                        "participants": $("#invitation_cng").val(),
+                        "seatStatus"  : "not_yet"
+                    }
+                    socket.emit("createGameTable",query); 
+                });
+                $("#gameTablesList").on("click",".removeGameTable",function(){
+                    var gameTable_id = $(this).attr("id");
+                    socket.emit("removeGameTable",gameTable_id);
+                    $(this).parent().remove();
+                });
+                socket.on('removeGameTable',function(data){
+                    $(".gameTable_id_"+ data._id ).remove();
+                });
+                $("#gameTablesList").on("click",".seating",function(){
+                    var query = {
+                        user         : "<%= you %>", 
+                        gameTable_id : $(this).parent().attr("id"),
+                    }
+                    socket.emit("seating",query);
+                });
+                socket.on("goGameRoom",function(data){
+                    location.href='/'+data.gametype+'/'+data._id;
+                    console.log('/'+data.gametype+'/'+data._id);
+                });
+                socket.on('addLoginUser',function(data){
+                    $(".user_id_"+data.newLoginID ).remove();
+                    $("#loginUsersList").append(data.newLoginList);
+                    $("#invitation_cng").append(data.newCngOpt);
+                })
+            });
+        </script>               
+        
+   
+<% include ../templates/footer.ejs %>

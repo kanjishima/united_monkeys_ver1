@@ -12,7 +12,7 @@ exports.loginCheck = function(req, res, next) {
     if(req.session.user){
       next();
     }else{
-      res.render("login.ejs");
+      res.render("login/login.ejs");
     }
 };
 exports.root = function(req,res){
@@ -20,7 +20,7 @@ exports.root = function(req,res){
     var query ={
         you : req.session.user,
     };
-    res.render('home.ejs', query);
+    res.render('home/home.ejs', query);
 };
 exports.add = function(req, res){
     console.log("add");
@@ -29,7 +29,7 @@ exports.add = function(req, res){
         "password"  : req.body.password
     };
     var errRoute    = function(){res.redirect("back");};
-    var succesRoute = function(){res.redirect("/login");};
+    var succesRoute = function(){res.redirect("login/login.ejs");};
     User.add_pvd(query,succesRoute,"",errRoute);
 };
 exports.login = function(req, res){
@@ -39,7 +39,7 @@ exports.login = function(req, res){
         "password"  : req.query.password
     };
     var errRoute    = function(){res.redirect("");};
-    var failRoute   = function(){res.render("login.ejs");};
+    var failRoute   = function(){res.render("login/login.ejs");};
     var succesRoute = function(){
         req.session.user = query.name;
         User.set_pvd(query,{"logStatus":"login"});
@@ -55,7 +55,7 @@ exports.logout = function(req,res){
     };
     req.session.destroy();
     User.set_pvd(query,{"logStatus":"logout"});
-    res.redirect("/login");
+    res.redirect("login/login.ejs");
 };
 exports.osero = function(req,res){
     console.log("osero");
